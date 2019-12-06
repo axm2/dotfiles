@@ -1,0 +1,33 @@
+#! /bin/sh
+
+sxhkd &
+
+bspc monitor -d 1 2 3 4 5 
+
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+#Border Colors
+
+bspc config normal_border_color '#404040'
+bspc config focused_border_color '#4E9FB1'
+bspc config urgent_border_color '#B58900'
+bspc config presel_border_color '#26E2FF'
+
+#bspc rule -a Gimp desktop='^8' state=floating follow=on
+#bspc rule -a google-chrome-stable private=on
+bspc rule -a google-chrome-stable state=fullscreen
+bspc rule -a google-chrome-stable desktop='^2'
+bspc rule -a mplayer2 state=floating
+#bspc rule -a Kupfer.py focus=on
+#bspc rule -a Screenkey manage=off
+
+#Wallpaper
+feh --bg-fill ~/Downloads/walls/lessthanqhd/rainycrossroads.jpg
+
+#polybar script
+~/.config/polybar/run.sh
