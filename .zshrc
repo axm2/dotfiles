@@ -13,7 +13,7 @@ compinit
 
 export ALSA_CARD=PCH
 export WPA_CLI_INTERFACE=wlp4s0
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_202
+export JAVA_HOME=/usr/lib/jvm/openjdk11
 export COLORTERM=truecolor
 
 alias ls='ls --color=auto'
@@ -23,6 +23,11 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
 alias df='df -H'
+alias setclip='xclip -selection c'
+alias getclip='xclip -selection o'
+alias scr = f() {
+                 scrot -s -l mode=edge -e 'curl -F "file=@ $f" https://x0.at/'
+               }
 
 if test -z "${XDG_RUNTIME_DIR}"; then
 	export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
@@ -32,3 +37,5 @@ if test -z "${XDG_RUNTIME_DIR}"; then
 	fi
 fi
 
+
+source /home/axm/.config/broot/launcher/bash/br
