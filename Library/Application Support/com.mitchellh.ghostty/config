@@ -1,0 +1,52 @@
+# Ghostty config — shared by all macOS machines; matches alacritty.toml
+
+# --- Colors (matches alacritty.toml colors.*) ---
+background = #151515
+foreground = #d7d0c7
+
+palette = 0=#101010
+palette = 1=#e84f4f
+palette = 2=#b8d68c
+palette = 3=#e1aa5d
+palette = 4=#7dc1cf
+palette = 5=#9b64fb
+palette = 6=#6d878d
+palette = 7=#dddddd
+palette = 8=#404040
+palette = 9=#d23d3d
+palette = 10=#a0cf5d
+palette = 11=#f39d21
+palette = 12=#4e9fb1
+palette = 13=#8542ff
+palette = 14=#42717b
+palette = 15=#dddddd
+
+# --- Font (matches alacritty.toml [font]) ---
+font-family = Cozette
+font-style = Medium
+font-family-bold = CozetteVector
+font-style-bold = Medium
+font-size = 13
+# Alacritty doesn't thicken glyphs; thickening smears bitmap pixels
+font-thicken = false
+
+# Alacritty's font.offset = {x=2, y=-1} adjusts glyph/cell spacing.
+# Ghostty equivalent: adjust-cell-width / adjust-cell-height (in pixels).
+adjust-cell-width = 2
+adjust-cell-height = -1
+
+# --- Window (matches alacritty.toml [window]) ---
+background-opacity = 0.90
+background-blur = true
+
+window-padding-x = 5
+window-padding-y = 5
+
+# Keep titlebar, hide traffic-light buttons
+macos-titlebar-style = transparent
+macos-window-buttons = hidden
+confirm-close-surface = false
+
+# --- Keybindings (matches alacritty.toml [[keyboard.bindings]]) ---
+# Shift+Return sends ESC + CR
+keybind = shift+enter=text:\x1b\r
