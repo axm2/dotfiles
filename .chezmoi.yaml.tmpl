@@ -1,0 +1,38 @@
+{{- /* Answers are stored in ~/.config/chezmoi/chezmoi.yaml and only asked once.
+       Re-ask everything with `chezmoi init --data=false`. */ -}}
+{{- /* Older configs hold template placeholders; treat those as unanswered */ -}}
+{{- $data := deepCopy . -}}
+{{- if eq (get $data "name") "Your Name" }}{{ $_ := unset $data "name" }}{{ end -}}
+{{- if eq (get $data "email") "your@email.com" }}{{ $_ := unset $data "email" }}{{ end -}}
+{{- $name := promptStringOnce $data "name" "Git name" "axm2" -}}
+{{- $email := promptStringOnce $data "email" "Git email" "24306299+axm2@users.noreply.github.com" -}}
+{{- $work := false -}}
+{{- $githubPat := "" -}}
+{{- $gatewayUrl := "" -}}
+{{- $sourcegraphUrl := "" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $work = promptBoolOnce . "work" "Is this a work machine" false -}}
+{{- /* Stays local to each machine; blank disables Zed GitHub MCP server */ -}}
+{{-   $githubPat = promptStringOnce . "githubPat" "GitHub PAT for Zed (blank to skip)" -}}
+{{-   if $work -}}
+{{-     $gatewayUrl = promptStringOnce . "workGatewayUrl" "Work AI gateway URL (blank to skip)" -}}
+{{-     $sourcegraphUrl = promptStringOnce . "sourcegraphUrl" "Sourcegraph MCP URL (blank to skip)" -}}
+{{-   end -}}
+{{- end -}}
+
+{{ if eq .chezmoi.os "windows" -}}
+# Nushell on windows
+cd:
+  command: "nu"
+  args: ["-i"]
+{{ end -}}
+
+sourceDir: {{ .chezmoi.sourceDir | quote }}
+
+data:
+  name: {{ $name | quote }}
+  email: {{ $email | quote }}
+  work: {{ $work }}
+  githubPat: {{ $githubPat | quote }}
+  workGatewayUrl: {{ $gatewayUrl | quote }}
+  sourcegraphUrl: {{ $sourcegraphUrl | quote }}

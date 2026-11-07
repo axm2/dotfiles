@@ -1,0 +1,49 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+{{- $signingKey := joinPath .chezmoi.homeDir ".ssh" "id_ed25519.pub" }}
+{{- if stat $signingKey }}
+	signingkey = {{ $signingKey | replace "\\" "/" }}
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+{{- end }}
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
+[push]
+    default = current
+	autoSetupRemote = true
+[log]
+    date = relative
+[format]
+    pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
+[color]
+    ui = true
+    branch = true
+    diff = true
+    grep = always
+    interactive = true
+    pager = true
+    showBranch = true
+    status = true
+
+[rerere]
+	enabled = true
+[alias]
+	pushfwl = push --force-with-lease
+	fpush = push --force-with-lease
+    br = branch --sort=-committerdate --format='%(HEAD)%(if)%(HEAD)%(then)%(color:green)%(end) %(align:50)%(refname:short)%(end) %(align:15)%(color:blue)%(committerdate:relative)%(end)  %(if:equals=refs/heads)%(refname:rstrip=-2)%(then)%(color:red)%(if)%(upstream)%(then)%(upstream:track)%(else)[unset]%(end)%(end)'
+[branch]
+	sort = committerdate
+[merge]
+	conflictstyle = zdiff3
+{{- if .work }}
+[maintenance]
+	repo = {{ .chezmoi.homeDir }}/platform
+	repo = {{ .chezmoi.homeDir }}/ops
+{{- end }}

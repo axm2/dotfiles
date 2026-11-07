@@ -1,0 +1,25 @@
+LICENSE
+README.md
+
+{{- if ne .chezmoi.os "windows" }}
+AppData/
+{{- end }}
+
+{{- if eq .chezmoi.os "windows" }}
+.config/fish/
+.config/zed/
+{{- end }}
+
+{{- if ne .chezmoi.os "darwin" }}
+.config/alacritty/
+.config/rift/
+{{- end }}
+
+{{- /* Archived thinkpad (Void + bspwm) setup; applies to any future Linux machine */}}
+{{- if ne .chezmoi.os "linux" }}
+.xinitrc
+.Xresources
+.config/bspwm/
+.config/sxhkd/
+{{- end }}
+
